@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ApiFutbolCostaRica.Application/ApiFutbolCostaRica.Application.csproj" />
+  <Project Path="ApiFutbolCostaRica.Domain/ApiFutbolCostaRica.Domain.csproj" />
+  <Project Path="ApiFutbolCostaRica.Infrastructure/ApiFutbolCostaRica.Infrastructure.csproj" />
+  <Project Path="ApiFutbolCostaRica.WebApi/ApiFutbolCostaRica.WebApi.csproj" />
+</Solution>
