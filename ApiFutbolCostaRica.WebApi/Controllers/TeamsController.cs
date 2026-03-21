@@ -4,6 +4,7 @@ using ApiFutbolCostaRica.Application.Features.Teams.Queries.GetTeamById;
 using ApiFutbolCostaRica.Application.Features.Teams.Queries.GetAllTeams;
 using ApiFutbolCostaRica.Application.Features.Teams.Commands.DeleteTeam;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiFutbolCostaRica.WebApi.Controllers;
@@ -20,6 +21,7 @@ public class TeamsController : ControllerBase
         _mediator = mediator;
     }
 
+    // [Authorize(Roles = "Admin")] // Comentado por ahora para permitir pruebas libres
     [HttpPost]
     public async Task<IActionResult> CreateTeam([FromBody] CreateTeamCommand command)
     {
@@ -34,6 +36,7 @@ public class TeamsController : ControllerBase
         });
     }
 
+    // [Authorize(Roles = "Admin")] // Comentado por ahora para permitir pruebas libres
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateTeam(int id, [FromBody] UpdateTeamCommand command)
     {
@@ -46,6 +49,7 @@ public class TeamsController : ControllerBase
         });
     }
 
+    // [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetTeamById(int id)
     {
@@ -57,6 +61,7 @@ public class TeamsController : ControllerBase
         return Ok(team);
     }
 
+    // [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetAllTeams()
     {
@@ -64,6 +69,7 @@ public class TeamsController : ControllerBase
         return Ok(teams);
     }
 
+    // [Authorize(Roles = "Admin")] // Comentado por ahora para permitir pruebas libres
     [HttpDelete("{id}")]
     public async Task<IActionResult> EliminarEquipo(int id)
     {

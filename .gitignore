@@ -483,3 +483,5 @@ $RECYCLE.BIN/
 
 # Archivos de documentación generados
 TEMP*.md
+
+*.txt
