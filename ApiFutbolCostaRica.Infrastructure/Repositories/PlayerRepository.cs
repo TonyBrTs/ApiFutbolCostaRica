@@ -18,4 +18,28 @@ public class PlayerRepository : IPlayerRepository
         await _context.SaveChangesAsync();
         return player.Id;
     }
+    public async Task<Player> ObtenerJugadorPorId(int id)
+    {
+        return await _context.Players.FindAsync(id);
+    }
+    public async Task<int> ActualizarJugador(Player player)
+    {
+        _context.Players.Update(player);
+        return await _context.SaveChangesAsync();
+    }
+    public async Task<int> EliminarJugador(int id)
+    {
+        var player = await _context.Players.FindAsync(id);
+        if (player == null)
+        {
+            return 0;
+        }
+        _context.Players.Remove(player);
+        return await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<Player>> ObtenerTodosLosJugadores()
+    {
+        return await _context.Players.ToListAsync();
+    }
 }

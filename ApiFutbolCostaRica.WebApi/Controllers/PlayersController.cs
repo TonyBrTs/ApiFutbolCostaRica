@@ -1,4 +1,6 @@
 using ApiFutbolCostaRica.Application.Features.Players.Commands.CreatePlayer;
+using ApiFutbolCostaRica.Application.Features.Players.Commands.UpdatePlayer;
+using ApiFutbolCostaRica.Application.Features.Teams.Queries.GetAllTeams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,5 +24,23 @@ public class PlayersController : ControllerBase
             Message = "¡Jugador creado en la base de datos de Costa Rica!",
             PlayerId = playerId
         });
+    }
+    [HttpPut]
+    public async Task<IActionResult> UpdatePlayer([FromBody] UpdatePlayerCommand command)
+    {
+        var playerId = await _mediator.Send(command);
+        return Ok(new
+        {
+            Message = "¡Jugador actualizado en la base de datos de Costa Rica!",
+            PlayerId = playerId
+        });
+    }
+
+    // [AllowAnonymous]
+    [HttpGet]
+    public async Task<IActionResult> GetAllPlayers()
+    {
+        var teams = await _mediator.Send(new GetAllTeamsQuery());
+        return Ok(teams);
     }
 }
