@@ -24,6 +24,7 @@ builder.Services.AddMediatR(cfg => {
 
 // Registrar Repositorios
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 
 // 3. ¡IMPORTANTE! Registrar los Controladores
 builder.Services.AddControllers();
