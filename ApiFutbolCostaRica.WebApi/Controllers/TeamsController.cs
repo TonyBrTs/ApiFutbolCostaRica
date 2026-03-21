@@ -1,7 +1,8 @@
-﻿using ApiFutbolCostaRica.Application.Features.Teams.Commands.CreateTeam;
+using ApiFutbolCostaRica.Application.Features.Teams.Commands.CreateTeam;
 using ApiFutbolCostaRica.Application.Features.Teams.Commands.UpdateTeam;
 using ApiFutbolCostaRica.Application.Features.Teams.Queries.GetTeamById;
 using ApiFutbolCostaRica.Application.Features.Teams.Queries.GetAllTeams;
+using ApiFutbolCostaRica.Application.Features.Teams.Commands.DeleteTeam;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,5 +62,16 @@ public class TeamsController : ControllerBase
     {
         var teams = await _mediator.Send(new GetAllTeamsQuery());
         return Ok(teams);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> EliminarEquipo(int id)
+    {
+        var result = await _mediator.Send(new DeleteTeamCommand { Id = id });
+
+        if (!result)
+            return NotFound(new { Message = "No se pudo eliminar: Equipo no encontrado" });
+
+        return Ok(new { Message = "¡Equipo eliminado de la base de datos de Costa Rica!" });
     }
 }

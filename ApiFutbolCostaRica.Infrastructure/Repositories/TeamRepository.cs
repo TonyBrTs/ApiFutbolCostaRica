@@ -37,4 +37,14 @@ public class TeamRepository : ITeamRepository
     {
         return await _context.Teams.FindAsync(id);
     }
+
+    public async Task<bool> EliminarEquipo(int id)
+    {
+        var team = await _context.Teams.FindAsync(id);
+        if (team == null) return false;
+
+        _context.Teams.Remove(team);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }
