@@ -3,6 +3,7 @@ using ApiFutbolCostaRica.Application.Features.Players.Commands.UpdatePlayer;
 using ApiFutbolCostaRica.Application.Features.Teams.Queries.GetAllTeams;
 using ApiFutbolCostaRica.Application.Features.Players.Queries.GetAllPlayers;
 using ApiFutbolCostaRica.Application.Features.Players.Queries.GetPlayerById;
+using ApiFutbolCostaRica.Application.Features.Players.Queries.GetPlayerByName;
 using ApiFutbolCostaRica.Application.Features.Players.Commands.DeletePlayer;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -56,6 +57,13 @@ public class PlayersController : ControllerBase
             return NotFound();
         }
         return Ok(player);
+    }
+
+    [HttpGet("name/{name}")]
+    public async Task<IActionResult> GetPlayerByName(string name)
+    {
+        var players = await _mediator.Send(new GetPlayerByNameQuery { Name = name });
+        return Ok(players);
     }
 
     [HttpDelete("{id}")]

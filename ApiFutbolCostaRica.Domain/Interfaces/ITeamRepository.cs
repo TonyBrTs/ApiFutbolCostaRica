@@ -8,5 +8,6 @@ public interface ITeamRepository
     Task<int> ActualizarEquipo(Team team);
     Task<IEnumerable<Team>> ObtenerTodosLosEquipos();
     Task<Team?> ObtenerEquipoPorId(int id);
+    Task<IEnumerable<Team>> ObtenerEquipoPorNombre(string name);
     Task<bool> EliminarEquipo(int id);
 }

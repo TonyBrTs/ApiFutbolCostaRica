@@ -22,6 +22,12 @@ public class PlayerRepository : IPlayerRepository
     {
         return await _context.Players.FindAsync(id);
     }
+    public async Task<IEnumerable<Player>> ObtenerJugadorPorNombre(string name)
+    {
+        return await _context.Players
+            .Where(p => p.Name.Contains(name))
+            .ToListAsync();
+    }
     public async Task<int> ActualizarJugador(Player player)
     {
         _context.Players.Update(player);

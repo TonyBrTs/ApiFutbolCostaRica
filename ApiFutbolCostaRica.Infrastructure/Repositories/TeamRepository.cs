@@ -38,6 +38,13 @@ public class TeamRepository : ITeamRepository
         return await _context.Teams.FindAsync(id);
     }
 
+    public async Task<IEnumerable<Team>> ObtenerEquipoPorNombre(string name)
+    {
+        return await _context.Teams
+            .Where(t => t.Name.Contains(name))
+            .ToListAsync();
+    }
+
     public async Task<bool> EliminarEquipo(int id)
     {
         var team = await _context.Teams.FindAsync(id);

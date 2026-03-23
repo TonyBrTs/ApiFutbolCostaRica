@@ -1,6 +1,7 @@
 using ApiFutbolCostaRica.Application.Features.Teams.Commands.CreateTeam;
 using ApiFutbolCostaRica.Application.Features.Teams.Commands.UpdateTeam;
 using ApiFutbolCostaRica.Application.Features.Teams.Queries.GetTeamById;
+using ApiFutbolCostaRica.Application.Features.Teams.Queries.GetTeamByName;
 using ApiFutbolCostaRica.Application.Features.Teams.Queries.GetAllTeams;
 using ApiFutbolCostaRica.Application.Features.Teams.Commands.DeleteTeam;
 using MediatR;
@@ -59,6 +60,13 @@ public class TeamsController : ControllerBase
             return NotFound(new { Message = "Equipo no encontrado" });
 
         return Ok(team);
+    }
+
+    [HttpGet("name/{name}")]
+    public async Task<IActionResult> GetTeamByName(string name)
+    {
+        var teams = await _mediator.Send(new GetTeamByNameQuery { Name = name });
+        return Ok(teams);
     }
 
     // [AllowAnonymous]
