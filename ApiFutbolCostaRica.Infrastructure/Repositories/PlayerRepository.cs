@@ -18,7 +18,7 @@ public class PlayerRepository : IPlayerRepository
         await _context.SaveChangesAsync();
         return player.Id;
     }
-    public async Task<Player> ObtenerJugadorPorId(int id)
+    public async Task<Player?> ObtenerJugadorPorId(int id)
     {
         return await _context.Players.FindAsync(id);
     }

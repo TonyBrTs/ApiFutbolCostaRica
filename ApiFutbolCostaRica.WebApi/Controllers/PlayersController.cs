@@ -1,6 +1,9 @@
 using ApiFutbolCostaRica.Application.Features.Players.Commands.CreatePlayer;
 using ApiFutbolCostaRica.Application.Features.Players.Commands.UpdatePlayer;
 using ApiFutbolCostaRica.Application.Features.Teams.Queries.GetAllTeams;
+using ApiFutbolCostaRica.Application.Features.Players.Queries.GetAllPlayers;
+using ApiFutbolCostaRica.Application.Features.Players.Queries.GetPlayerById;
+using ApiFutbolCostaRica.Application.Features.Players.Commands.DeletePlayer;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,7 +43,29 @@ public class PlayersController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllPlayers()
     {
-        var teams = await _mediator.Send(new GetAllTeamsQuery());
-        return Ok(teams);
+        var players = await _mediator.Send(new GetAllPlayersQuery());
+        return Ok(players);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetPlayerById(int id)
+    {
+        var player = await _mediator.Send(new GetPlayerByIdQuery { Id = id });
+        if (player == null)
+        {
+            return NotFound();
+        }
+        return Ok(player);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePlayer(int id)
+    {
+        var playerId = await _mediator.Send(new DeletePlayerCommand { Id = id });
+        return Ok(new
+        {
+            Message = "¡Jugador eliminado de la base de datos de Costa Rica!",
+            PlayerId = playerId
+        });
     }
 }
