@@ -25,13 +25,12 @@ public class ExceptionHandlingMiddleware
             context.Response.ContentType = "application/json";
 
             var errors = ex.Errors.Select(e => new { e.PropertyName, e.ErrorMessage });
-            var response = new { Message = "Errores de validación", Errors = errors };
+            var response = new { Message = "Validation errors", Errors = errors };
 
             await context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
         catch (Exception)
         {
-            // Podrías manejar otros errores aquí
             throw; 
         }
     }

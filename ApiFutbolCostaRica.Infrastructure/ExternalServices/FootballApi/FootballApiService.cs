@@ -55,7 +55,7 @@ public class FootballApiService : IFootballApiService
             Position = p.Position ?? string.Empty,
             Number = p.Number ?? 0,
             PhotoUrl = p.Photo ?? string.Empty,
-            Nationality = "Costa Rica" // Dato por defecto si la API no lo da en squad
+            Nationality = "Costa Rica"
         });
     }
     public async Task<IEnumerable<Match>> GetFixturesByLeague(int leagueId, int season)
@@ -74,7 +74,7 @@ public class FootballApiService : IFootballApiService
             HomeTeamGoals = f.Goals.Home ?? 0,
             AwayTeamGoals = f.Goals.Away ?? 0,
             
-            // Pasamos los nombres en objetos temporales para que el Handler los busque
+
             HomeTeam = new Team { Name = f.Teams.Home.Name ?? string.Empty },
             AwayTeam = new Team { Name = f.Teams.Away.Name ?? string.Empty }
         });

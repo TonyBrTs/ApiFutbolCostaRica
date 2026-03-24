@@ -15,12 +15,10 @@ public class UpdateTeamCommandHandler : IRequestHandler<UpdateTeamCommand, int>
 
     public async Task<int> Handle(UpdateTeamCommand request, CancellationToken cancellationToken)
     {
-        // 1. Buscamos el equipo real en la base de datos
         var existingTeam = await _teamRepository.GetTeamById(request.Id);
 
         if (existingTeam == null) return 0;
 
-        // 2. Solo actualizamos lo que NO sea nulo en la petición
         if (request.Name != null) 
             existingTeam.Name = request.Name;
             
@@ -30,7 +28,6 @@ public class UpdateTeamCommandHandler : IRequestHandler<UpdateTeamCommand, int>
         if (request.Stadium != null) 
             existingTeam.Stadium = request.Stadium;
 
-        // 3. Guardamos el objeto ya actualizado
         return await _teamRepository.UpdateTeam(existingTeam);
     }
 }
