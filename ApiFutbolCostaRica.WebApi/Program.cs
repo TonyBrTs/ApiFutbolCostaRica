@@ -26,10 +26,22 @@ builder.Services.AddMediatR(cfg => {
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 
-// 3. ¡IMPORTANTE! Registrar los Controladores
-builder.Services.AddControllers();
+// 3. Configurar API-Football Externa
+builder.Services.AddHttpClient<ApiFutbolCostaRica.Application.Interfaces.IFootballApiService, ApiFutbolCostaRica.Infrastructure.ExternalServices.FootballApi.FootballApiService>(client =>
+{
+    var footballApiConfig = builder.Configuration.GetSection("FootballApi");
+    client.BaseAddress = new Uri(footballApiConfig["BaseUrl"] ?? "https://v3.football.api-sports.io/");
+    client.DefaultRequestHeaders.Add("x-apisports-key", footballApiConfig["ApiKey"]);
+});
 
-// 4. Configurar Swagger/OpenAPI
+// 4. ¡IMPORTANTE! Registrar los Controladores
+builder.Services.AddControllers()
+    .AddJsonOptions(options => 
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
+// 5. Configurar Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -40,7 +52,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
-    // 5. Activar Swagger únicamente en desarrollo
+    // 6. Activar Swagger únicamente en desarrollo
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
@@ -53,7 +65,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// 6. Mapear los controladores para que reconozca el TeamsController
+// 7. Mapear los controladores para que reconozca el TeamsController
 app.MapControllers();
 
 app.Run();

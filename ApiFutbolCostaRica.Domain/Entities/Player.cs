@@ -7,6 +7,9 @@ public class Player
     public string Position { get; set; } = string.Empty; // Ej: "Portero", "Defensa"
     public string Nationality { get; set; } = string.Empty;
     public int Age { get; set; }
+    public string PhotoUrl { get; set; } = string.Empty;
+    public int? Number { get; set; }
+
     // Relación con el Equipo (Llave Foránea) - Ahora opcional
     public int? TeamId { get; set; }
 

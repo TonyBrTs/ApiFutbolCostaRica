@@ -10,4 +10,5 @@ public interface ITeamRepository
     Task<Team?> ObtenerEquipoPorId(int id);
     Task<IEnumerable<Team>> ObtenerEquipoPorNombre(string name);
     Task<bool> EliminarEquipo(int id);
+    Task LimpiarTodosLosEquipos();
 }

@@ -54,4 +54,9 @@ public class TeamRepository : ITeamRepository
         await _context.SaveChangesAsync();
         return true;
     }
+
+    public async Task LimpiarTodosLosEquipos()
+    {
+        await _context.Teams.ExecuteDeleteAsync();
+    }
 }

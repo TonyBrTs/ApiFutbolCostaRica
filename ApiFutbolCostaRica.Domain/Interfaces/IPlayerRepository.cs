@@ -10,5 +10,6 @@ public interface IPlayerRepository
     Task<int> ActualizarJugador(Player player);
     Task<int> EliminarJugador(int id);
     Task<IEnumerable<Player>> ObtenerTodosLosJugadores();
+    Task LimpiarTodosLosJugadores();
 }
 

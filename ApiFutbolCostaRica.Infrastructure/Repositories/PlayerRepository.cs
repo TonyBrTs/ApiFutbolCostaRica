@@ -48,4 +48,9 @@ public class PlayerRepository : IPlayerRepository
     {
         return await _context.Players.ToListAsync();
     }
+
+    public async Task LimpiarTodosLosJugadores()
+    {
+        await _context.Players.ExecuteDeleteAsync();
+    }
 }

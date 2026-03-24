@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 
 namespace ApiFutbolCostaRica.Domain.Entities;
 
@@ -8,6 +8,8 @@ public class Team
     public string Name { get; set; } = string.Empty;
     public int FoundationYear { get; set; }
     public string Stadium { get; set; } = string.Empty;
+    public string LogoUrl { get; set; } = string.Empty;
+    public string StadiumImage { get; set; } = string.Empty;
 
     // Propiedad de navegación: Un equipo tiene una lista de muchos jugadores
     public ICollection<Player> Players { get; set; } = new List<Player>();
