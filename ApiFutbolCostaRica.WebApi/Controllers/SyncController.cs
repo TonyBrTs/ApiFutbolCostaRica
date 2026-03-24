@@ -27,4 +27,16 @@ public class SyncController : ControllerBase
 
         return StatusCode(500, new { Message = "Ocurrió un error durante la sincronización." });
     }
+
+    [HttpPost("matches/{leagueId}")]
+    public async Task<IActionResult> SyncMatches(int leagueId, [FromQuery] int season = 2023)
+    {
+        var command = new ApiFutbolCostaRica.Application.Features.Sync.Commands.SyncMatches.SyncMatchesCommand { LeagueId = leagueId, Season = season };
+        var result = await _mediator.Send(command);
+
+        if (result)
+            return Ok(new { Message = $"Sincronización de partidos de la liga {leagueId} completada con éxito." });
+
+        return StatusCode(500, new { Message = "Ocurrió un error durante la sincronización de los partidos." });
+    }
 }

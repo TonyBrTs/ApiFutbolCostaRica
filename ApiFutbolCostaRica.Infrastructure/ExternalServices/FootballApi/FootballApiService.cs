@@ -58,4 +58,25 @@ public class FootballApiService : IFootballApiService
             Nationality = "Costa Rica" // Dato por defecto si la API no lo da en squad
         });
     }
+    public async Task<IEnumerable<Match>> GetFixturesByLeague(int leagueId, int season)
+    {
+        var response = await _httpClient.GetFromJsonAsync<FootballApiResponse<FixtureDto>>($"/fixtures?league={leagueId}&season={season}");
+
+        if (response?.Response == null || !response.Response.Any()) return Enumerable.Empty<Match>();
+
+        return response.Response.Select(f => new Match
+        {
+            ExternalId = f.Fixture.Id,
+            MatchDate = f.Fixture.Date,
+            Referee = f.Fixture.Referee ?? string.Empty,
+            Venue = f.Fixture.Venue?.Name ?? string.Empty,
+            Status = f.Fixture.Status?.Long ?? "Scheduled",
+            HomeTeamGoals = f.Goals.Home ?? 0,
+            AwayTeamGoals = f.Goals.Away ?? 0,
+            
+            // Pasamos los nombres en objetos temporales para que el Handler los busque
+            HomeTeam = new Team { Name = f.Teams.Home.Name ?? string.Empty },
+            AwayTeam = new Team { Name = f.Teams.Away.Name ?? string.Empty }
+        });
+    }
 }

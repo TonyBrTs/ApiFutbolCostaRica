@@ -25,6 +25,7 @@ builder.Services.AddMediatR(cfg => {
 // Registrar Repositorios
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 
 // 3. Configurar API-Football Externa
 builder.Services.AddHttpClient<ApiFutbolCostaRica.Application.Interfaces.IFootballApiService, ApiFutbolCostaRica.Infrastructure.ExternalServices.FootballApi.FootballApiService>(client =>

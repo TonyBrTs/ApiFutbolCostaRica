@@ -71,3 +71,72 @@ public class PlayerData
     [JsonPropertyName("photo")]
     public string? Photo { get; set; }
 }
+
+public class FixtureDto
+{
+    [JsonPropertyName("fixture")]
+    public FixtureData Fixture { get; set; } = new();
+
+    [JsonPropertyName("teams")]
+    public FixtureTeams Teams { get; set; } = new();
+
+    [JsonPropertyName("goals")]
+    public FixtureGoals Goals { get; set; } = new();
+}
+
+public class FixtureData
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("referee")]
+    public string? Referee { get; set; }
+
+    [JsonPropertyName("date")]
+    public DateTime Date { get; set; }
+
+    [JsonPropertyName("venue")]
+    public VenueData Venue { get; set; } = new();
+
+    [JsonPropertyName("status")]
+    public FixtureStatus Status { get; set; } = new();
+}
+
+public class FixtureStatus
+{
+    [JsonPropertyName("long")]
+    public string Long { get; set; } = string.Empty;
+
+    [JsonPropertyName("short")]
+    public string Short { get; set; } = string.Empty;
+}
+
+public class FixtureTeams
+{
+    [JsonPropertyName("home")]
+    public FixtureTeam Home { get; set; } = new();
+
+    [JsonPropertyName("away")]
+    public FixtureTeam Away { get; set; } = new();
+}
+
+public class FixtureTeam
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("winner")]
+    public bool? Winner { get; set; }
+}
+
+public class FixtureGoals
+{
+    [JsonPropertyName("home")]
+    public int? Home { get; set; }
+
+    [JsonPropertyName("away")]
+    public int? Away { get; set; }
+}
