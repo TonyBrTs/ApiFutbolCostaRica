@@ -16,6 +16,9 @@ public class SyncController : ControllerBase
         _mediator = mediator;
     }
 
+    /// <summary>
+    /// Synchronizes league and team data from external API.
+    /// </summary>
     [HttpPost("league/{leagueId}")]
     public async Task<IActionResult> SyncLeague(int leagueId, [FromQuery] int season = 2023)
     {
@@ -28,6 +31,9 @@ public class SyncController : ControllerBase
         return StatusCode(500, new { Message = "An error occurred during synchronization." });
     }
 
+    /// <summary>
+    /// Synchronizes match data for a given league from external API.
+    /// </summary>
     [HttpPost("matches/{leagueId}")]
     public async Task<IActionResult> SyncMatches(int leagueId, [FromQuery] int season = 2023)
     {

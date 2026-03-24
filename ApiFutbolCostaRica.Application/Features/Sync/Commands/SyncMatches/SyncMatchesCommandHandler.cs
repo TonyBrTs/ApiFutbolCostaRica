@@ -37,8 +37,6 @@ public class SyncMatchesCommandHandler : IRequestHandler<SyncMatchesCommand, boo
             var awayTeams = await _teamRepository.GetTeamsByName(fixture.AwayTeam!.Name);
             var awayTeam = awayTeams.FirstOrDefault();
 
-            // Si los equipos no existen localmente, no podemos registrar el partido
-            // Se debe haber corrido antes la sincronización de liga (Equipos).
             if (homeTeam == null || awayTeam == null)
             {
                 continue;
@@ -49,7 +47,6 @@ public class SyncMatchesCommandHandler : IRequestHandler<SyncMatchesCommand, boo
                 fixture.HomeTeamId = homeTeam.Id;
                 fixture.AwayTeamId = awayTeam.Id;
                 
-                // Evitamos que EF intente insertar los equipos temporales de nuevo
                 fixture.HomeTeam = null;
                 fixture.AwayTeam = null;
 
@@ -57,7 +54,6 @@ public class SyncMatchesCommandHandler : IRequestHandler<SyncMatchesCommand, boo
             }
             else
             {
-                // Solo actualizamos lo que podría cambiar (marcador, estado, etc.)
                 existingMatch.MatchDate = fixture.MatchDate;
                 existingMatch.Status = fixture.Status;
                 existingMatch.HomeTeamGoals = fixture.HomeTeamGoals;

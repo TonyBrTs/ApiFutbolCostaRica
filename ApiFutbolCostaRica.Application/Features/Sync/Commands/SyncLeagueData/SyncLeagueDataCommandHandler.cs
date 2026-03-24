@@ -27,12 +27,10 @@ public class SyncLeagueDataCommandHandler : IRequestHandler<SyncLeagueDataComman
 
     public async Task<bool> Handle(SyncLeagueDataCommand request, CancellationToken cancellationToken)
     {
-        // 1. Obtener equipos desde la API externa
         var externalResults = await _footballApiService.GetTeamsByLeague(request.LeagueId, request.Season);
 
         foreach (var (team, apiId) in externalResults)
         {
-            // 2. Buscar si el equipo ya existe en la BD
             var existingTeams = await _teamRepository.GetTeamsByName(team.Name);
             var existingTeam = existingTeams.FirstOrDefault();
 
@@ -44,7 +42,6 @@ public class SyncLeagueDataCommandHandler : IRequestHandler<SyncLeagueDataComman
             }
             else
             {
-                // Solo actualizamos si le falta la información visual nueva
                 if (string.IsNullOrEmpty(existingTeam.LogoUrl))
                 {
                     existingTeam.LogoUrl = team.LogoUrl;
@@ -54,17 +51,14 @@ public class SyncLeagueDataCommandHandler : IRequestHandler<SyncLeagueDataComman
                 internalTeamId = existingTeam.Id;
             }
 
-            // SEGURIDAD: 5 segundos entre equipos para evitar el límite de frecuencia (10/min)
             await Task.Delay(5000, cancellationToken);
 
-            // 3. Obtener plantilla desde la API
             var externalPlayers = await _footballApiService.GetSquadByTeam(apiId);
 
             foreach (var player in externalPlayers)
             {
                 player.TeamId = internalTeamId;
                 
-                // 4. Buscar si el jugador existe en este equipo
                 var playerSearchResults = await _playerRepository.GetPlayersByName(player.Name);
                 var existingPlayer = playerSearchResults.FirstOrDefault(p => p.TeamId == internalTeamId);
 
@@ -74,7 +68,6 @@ public class SyncLeagueDataCommandHandler : IRequestHandler<SyncLeagueDataComman
                 }
                 else if (string.IsNullOrEmpty(existingPlayer.PhotoUrl))
                 {
-                    // Actualizar solo si le faltan los datos nuevos
                     existingPlayer.PhotoUrl = player.PhotoUrl;
                     existingPlayer.Number = player.Number;
                     existingPlayer.Position = player.Position;

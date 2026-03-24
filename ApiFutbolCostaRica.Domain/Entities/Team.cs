@@ -11,6 +11,8 @@ public class Team
     public string LogoUrl { get; set; } = string.Empty;
     public string StadiumImage { get; set; } = string.Empty;
 
-    // Navigation property: A team has a list of many players
+    /// <summary>
+    /// List of players belonging to this team.
+    /// </summary>
     public ICollection<Player> Players { get; set; } = new List<Player>();
 }

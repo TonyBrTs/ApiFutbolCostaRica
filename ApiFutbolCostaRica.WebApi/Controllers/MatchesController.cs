@@ -20,6 +20,9 @@ public class MatchesController : ControllerBase
         _mediator = mediator;
     }
 
+    /// <summary>
+    /// Creates a new match.
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> CreateMatch([FromBody] CreateMatchCommand command)
     {
@@ -31,6 +34,9 @@ public class MatchesController : ControllerBase
         });
     }
 
+    /// <summary>
+    /// Updates an existing match.
+    /// </summary>
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateMatch(int id, [FromBody] UpdateMatchCommand command)
     {
@@ -47,6 +53,9 @@ public class MatchesController : ControllerBase
         });
     }
 
+    /// <summary>
+    /// Retrieves all matches.
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetAllMatches()
     {
@@ -54,6 +63,9 @@ public class MatchesController : ControllerBase
         return Ok(matches);
     }
 
+    /// <summary>
+    /// Retrieves a match by its ID.
+    /// </summary>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetMatchById(int id)
     {
@@ -65,6 +77,9 @@ public class MatchesController : ControllerBase
         return Ok(match);
     }
 
+    /// <summary>
+    /// Deletes a match.
+    /// </summary>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteMatch(int id)
     {

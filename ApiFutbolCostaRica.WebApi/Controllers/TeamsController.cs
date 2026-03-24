@@ -16,20 +16,21 @@ public class TeamsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    // Inyectamos MediatR para comunicarnos con la capa de Application
+    /// <summary>
+    /// Initializes a new instance of the TeamsController.
+    /// </summary>
     public TeamsController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
-    // [Authorize(Roles = "Admin")] // Comentado por ahora para permitir pruebas libres
+    /// <summary>
+    /// Creates a new team.
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> CreateTeam([FromBody] CreateTeamCommand command)
     {
-        // Enviamos el comando a través de MediatR
         var teamId = await _mediator.Send(command);
-
-        // Return a successful response with the generated ID in the DB
         return Ok(new
         {
             Message = "Team created in the Costa Rica database!",
@@ -37,7 +38,9 @@ public class TeamsController : ControllerBase
         });
     }
 
-    // [Authorize(Roles = "Admin")] // Comentado por ahora para permitir pruebas libres
+    /// <summary>
+    /// Updates an existing team.
+    /// </summary>
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateTeam(int id, [FromBody] UpdateTeamCommand command)
     {
@@ -50,7 +53,9 @@ public class TeamsController : ControllerBase
         });
     }
 
-    // [AllowAnonymous]
+    /// <summary>
+    /// Retrieves a team by its ID.
+    /// </summary>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetTeamById(int id)
     {
@@ -69,7 +74,9 @@ public class TeamsController : ControllerBase
         return Ok(teams);
     }
 
-    // [AllowAnonymous]
+    /// <summary>
+    /// Retrieves all teams.
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetAllTeams()
     {
@@ -77,7 +84,9 @@ public class TeamsController : ControllerBase
         return Ok(teams);
     }
 
-    // [Authorize(Roles = "Admin")] // Commented for now to allow free testing
+    /// <summary>
+    /// Deletes a team.
+    /// </summary>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTeam(int id)
     {

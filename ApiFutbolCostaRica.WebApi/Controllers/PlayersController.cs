@@ -19,6 +19,9 @@ public class PlayersController : ControllerBase
     {
         _mediator = mediator;
     }
+    /// <summary>
+    /// Creates a new player.
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> CreatePlayer([FromBody] CreatePlayerCommand command)
     {
@@ -40,7 +43,9 @@ public class PlayersController : ControllerBase
         });
     }
 
-    // [AllowAnonymous]
+    /// <summary>
+    /// Retrieves all players.
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetAllPlayers()
     {
@@ -48,6 +53,9 @@ public class PlayersController : ControllerBase
         return Ok(players);
     }
 
+    /// <summary>
+    /// Retrieves a player by their ID.
+    /// </summary>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetPlayerById(int id)
     {
@@ -66,6 +74,9 @@ public class PlayersController : ControllerBase
         return Ok(players);
     }
 
+    /// <summary>
+    /// Deletes a player.
+    /// </summary>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeletePlayer(int id)
     {
