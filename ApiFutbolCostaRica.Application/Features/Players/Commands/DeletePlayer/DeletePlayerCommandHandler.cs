@@ -14,6 +14,6 @@ public class DeletePlayerCommandHandler : IRequestHandler<DeletePlayerCommand, i
 
     public async Task<int> Handle(DeletePlayerCommand request, CancellationToken cancellationToken)
     {
-        return await _playerRepository.EliminarJugador(request.Id);
+        return await _playerRepository.DeletePlayer(request.Id);
     }
 }

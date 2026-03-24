@@ -23,9 +23,9 @@ public class SyncController : ControllerBase
         var result = await _mediator.Send(command);
 
         if (result)
-            return Ok(new { Message = $"Sincronización de la liga {leagueId} completada con éxito." });
+            return Ok(new { Message = $"League {leagueId} synchronization completed successfully." });
 
-        return StatusCode(500, new { Message = "Ocurrió un error durante la sincronización." });
+        return StatusCode(500, new { Message = "An error occurred during synchronization." });
     }
 
     [HttpPost("matches/{leagueId}")]
@@ -35,8 +35,8 @@ public class SyncController : ControllerBase
         var result = await _mediator.Send(command);
 
         if (result)
-            return Ok(new { Message = $"Sincronización de partidos de la liga {leagueId} completada con éxito." });
+            return Ok(new { Message = $"Match synchronization for league {leagueId} completed successfully." });
 
-        return StatusCode(500, new { Message = "Ocurrió un error durante la sincronización de los partidos." });
+        return StatusCode(500, new { Message = "An error occurred during match synchronization." });
     }
 }

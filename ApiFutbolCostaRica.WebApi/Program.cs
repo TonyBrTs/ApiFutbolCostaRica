@@ -35,7 +35,7 @@ builder.Services.AddHttpClient<ApiFutbolCostaRica.Application.Interfaces.IFootba
     client.DefaultRequestHeaders.Add("x-apisports-key", footballApiConfig["ApiKey"]);
 });
 
-// 4. ¡IMPORTANTE! Registrar los Controladores
+// 4. IMPORTANT! Register Controllers
 builder.Services.AddControllers()
     .AddJsonOptions(options => 
     {

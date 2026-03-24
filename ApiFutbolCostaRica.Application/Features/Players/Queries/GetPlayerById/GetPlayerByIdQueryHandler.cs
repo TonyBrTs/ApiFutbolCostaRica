@@ -13,6 +13,6 @@ public class GetPlayerByIdQueryHandler : IRequestHandler<GetPlayerByIdQuery, Pla
     }
     public async Task<Player?> Handle(GetPlayerByIdQuery request, CancellationToken cancellationToken)
     {
-        return await _playerRepository.ObtenerJugadorPorId(request.Id);
+        return await _playerRepository.GetPlayerById(request.Id);
     }
 }

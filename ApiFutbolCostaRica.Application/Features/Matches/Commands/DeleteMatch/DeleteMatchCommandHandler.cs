@@ -16,6 +16,6 @@ public class DeleteMatchCommandHandler : IRequestHandler<DeleteMatchCommand, int
 
     public async Task<int> Handle(DeleteMatchCommand request, CancellationToken cancellationToken)
     {
-        return await _matchRepository.EliminarPartido(request.Id);
+        return await _matchRepository.DeleteMatch(request.Id);
     }
 }

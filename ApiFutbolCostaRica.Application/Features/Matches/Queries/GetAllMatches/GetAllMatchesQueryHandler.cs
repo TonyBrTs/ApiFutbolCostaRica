@@ -18,6 +18,6 @@ public class GetAllMatchesQueryHandler : IRequestHandler<GetAllMatchesQuery, IEn
 
     public async Task<IEnumerable<Match>> Handle(GetAllMatchesQuery request, CancellationToken cancellationToken)
     {
-        return await _matchRepository.ObtenerTodosLosPartidos();
+        return await _matchRepository.GetAllMatches();
     }
 }

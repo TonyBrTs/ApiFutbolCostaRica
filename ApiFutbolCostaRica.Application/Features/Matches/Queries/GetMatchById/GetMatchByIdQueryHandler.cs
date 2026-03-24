@@ -17,6 +17,6 @@ public class GetMatchByIdQueryHandler : IRequestHandler<GetMatchByIdQuery, Match
 
     public async Task<Match?> Handle(GetMatchByIdQuery request, CancellationToken cancellationToken)
     {
-        return await _matchRepository.ObtenerPartidoPorId(request.Id);
+        return await _matchRepository.GetMatchById(request.Id);
     }
 }

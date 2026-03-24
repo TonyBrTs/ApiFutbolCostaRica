@@ -26,7 +26,7 @@ public class MatchesController : ControllerBase
         var matchId = await _mediator.Send(command);
         return Ok(new
         {
-            Message = "¡Partido creado exitosamente!",
+            Message = "Match created successfully!",
             MatchId = matchId
         });
     }
@@ -36,13 +36,13 @@ public class MatchesController : ControllerBase
     {
         if (id != command.Id)
         {
-            return BadRequest(new { Message = "El ID de la ruta no coincide con el ID del cuerpo de la petición." });
+            return BadRequest(new { Message = "Route ID does not match the request body ID." });
         }
 
         var matchId = await _mediator.Send(command);
         return Ok(new
         {
-            Message = "¡Partido actualizado exitosamente!",
+            Message = "Match updated successfully!",
             MatchId = matchId
         });
     }
@@ -60,7 +60,7 @@ public class MatchesController : ControllerBase
         var match = await _mediator.Send(new GetMatchByIdQuery { Id = id });
         if (match == null)
         {
-            return NotFound(new { Message = $"No se encontró el partido con ID {id}" });
+            return NotFound(new { Message = $"Match with ID {id} not found" });
         }
         return Ok(match);
     }
@@ -72,12 +72,12 @@ public class MatchesController : ControllerBase
         
         if (result == 0)
         {
-            return NotFound(new { Message = $"No se encontró el partido con ID {id}" });
+            return NotFound(new { Message = $"Match with ID {id} not found" });
         }
 
         return Ok(new
         {
-            Message = "¡Partido eliminado exitosamente!",
+            Message = "Match deleted successfully!",
             RowsAffected = result
         });
     }

@@ -33,14 +33,14 @@ public class SyncLeagueDataCommandHandler : IRequestHandler<SyncLeagueDataComman
         foreach (var (team, apiId) in externalResults)
         {
             // 2. Buscar si el equipo ya existe en la BD
-            var existingTeams = await _teamRepository.ObtenerEquipoPorNombre(team.Name);
+            var existingTeams = await _teamRepository.GetTeamsByName(team.Name);
             var existingTeam = existingTeams.FirstOrDefault();
 
             int internalTeamId;
 
             if (existingTeam == null)
             {
-                internalTeamId = await _teamRepository.RegistrarNuevoEquipo(team);
+                internalTeamId = await _teamRepository.RegisterNewTeam(team);
             }
             else
             {
@@ -49,7 +49,7 @@ public class SyncLeagueDataCommandHandler : IRequestHandler<SyncLeagueDataComman
                 {
                     existingTeam.LogoUrl = team.LogoUrl;
                     existingTeam.StadiumImage = team.StadiumImage;
-                    await _teamRepository.ActualizarEquipo(existingTeam);
+                    await _teamRepository.UpdateTeam(existingTeam);
                 }
                 internalTeamId = existingTeam.Id;
             }
@@ -65,12 +65,12 @@ public class SyncLeagueDataCommandHandler : IRequestHandler<SyncLeagueDataComman
                 player.TeamId = internalTeamId;
                 
                 // 4. Buscar si el jugador existe en este equipo
-                var playerSearchResults = await _playerRepository.ObtenerJugadorPorNombre(player.Name);
+                var playerSearchResults = await _playerRepository.GetPlayersByName(player.Name);
                 var existingPlayer = playerSearchResults.FirstOrDefault(p => p.TeamId == internalTeamId);
 
                 if (existingPlayer == null)
                 {
-                    await _playerRepository.RegistrarNuevoJugador(player);
+                    await _playerRepository.RegisterNewPlayer(player);
                 }
                 else if (string.IsNullOrEmpty(existingPlayer.PhotoUrl))
                 {
@@ -80,7 +80,7 @@ public class SyncLeagueDataCommandHandler : IRequestHandler<SyncLeagueDataComman
                     existingPlayer.Position = player.Position;
                     existingPlayer.Age = player.Age;
                     
-                    await _playerRepository.ActualizarJugador(existingPlayer);
+                    await _playerRepository.UpdatePlayer(existingPlayer);
                 }
             }
         }

@@ -16,6 +16,6 @@ public class GetPlayerByNameQueryHandler : IRequestHandler<GetPlayerByNameQuery,
 
     public async Task<IEnumerable<Player>> Handle(GetPlayerByNameQuery request, CancellationToken cancellationToken)
     {
-        return await _playerRepository.ObtenerJugadorPorNombre(request.Name);
+        return await _playerRepository.GetPlayersByName(request.Name);
     }
 }

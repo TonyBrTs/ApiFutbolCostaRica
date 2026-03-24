@@ -29,6 +29,6 @@ public class CreateMatchCommandHandler : IRequestHandler<CreateMatchCommand, int
             Venue = request.Venue
         };
 
-        return await _matchRepository.RegistrarNuevoPartido(match);
+        return await _matchRepository.RegisterNewMatch(match);
     }
 }

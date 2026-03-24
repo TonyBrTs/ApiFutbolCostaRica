@@ -11,6 +11,6 @@ public class Team
     public string LogoUrl { get; set; } = string.Empty;
     public string StadiumImage { get; set; } = string.Empty;
 
-    // Propiedad de navegación: Un equipo tiene una lista de muchos jugadores
+    // Navigation property: A team has a list of many players
     public ICollection<Player> Players { get; set; } = new List<Player>();
 }

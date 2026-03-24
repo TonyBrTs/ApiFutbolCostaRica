@@ -15,7 +15,7 @@ public class UpdatePlayerCommandHandler : IRequestHandler<UpdatePlayerCommand, U
 
     public async Task<Unit> Handle(UpdatePlayerCommand request, CancellationToken cancellationToken)
     {
-        var player = await _playerRepository.ObtenerJugadorPorId(request.Id);
+        var player = await _playerRepository.GetPlayerById(request.Id);
         if (player == null)
         {
             throw new Exception("Player not found");
@@ -27,7 +27,7 @@ public class UpdatePlayerCommandHandler : IRequestHandler<UpdatePlayerCommand, U
         player.Nationality = request.Nationality;
         player.TeamId = request.TeamId;
 
-        await _playerRepository.ActualizarJugador(player);
+        await _playerRepository.UpdatePlayer(player);
         return Unit.Value;
     }
 }

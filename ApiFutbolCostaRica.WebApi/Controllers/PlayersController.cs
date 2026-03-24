@@ -25,7 +25,7 @@ public class PlayersController : ControllerBase
         var playerId = await _mediator.Send(command);
         return Ok(new
         {
-            Message = "¡Jugador creado en la base de datos de Costa Rica!",
+            Message = "Player created in the Costa Rica database!",
             PlayerId = playerId
         });
     }
@@ -35,7 +35,7 @@ public class PlayersController : ControllerBase
         var playerId = await _mediator.Send(command);
         return Ok(new
         {
-            Message = "¡Jugador actualizado en la base de datos de Costa Rica!",
+            Message = "Player updated in the Costa Rica database!",
             PlayerId = playerId
         });
     }
@@ -72,7 +72,7 @@ public class PlayersController : ControllerBase
         var playerId = await _mediator.Send(new DeletePlayerCommand { Id = id });
         return Ok(new
         {
-            Message = "¡Jugador eliminado de la base de datos de Costa Rica!",
+            Message = "Player deleted from the Costa Rica database!",
             PlayerId = playerId
         });
     }

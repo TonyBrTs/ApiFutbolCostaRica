@@ -29,10 +29,10 @@ public class TeamsController : ControllerBase
         // Enviamos el comando a través de MediatR
         var teamId = await _mediator.Send(command);
 
-        // Retornamos una respuesta exitosa con el ID generado en la BD
+        // Return a successful response with the generated ID in the DB
         return Ok(new
         {
-            Message = "¡Equipo creado en la base de datos de Costa Rica!",
+            Message = "Team created in the Costa Rica database!",
             TeamId = teamId
         });
     }
@@ -45,7 +45,7 @@ public class TeamsController : ControllerBase
         var teamId = await _mediator.Send(command);
         return Ok(new
         {
-            Message = "¡Equipo actualizado en la base de datos de Costa Rica!",
+            Message = "Team updated in the Costa Rica database!",
             TeamId = teamId
         });
     }
@@ -57,7 +57,7 @@ public class TeamsController : ControllerBase
         var team = await _mediator.Send(new GetTeamByIdQuery { Id = id });
 
         if (team == null)
-            return NotFound(new { Message = "Equipo no encontrado" });
+            return NotFound(new { Message = "Team not found" });
 
         return Ok(team);
     }
@@ -77,15 +77,15 @@ public class TeamsController : ControllerBase
         return Ok(teams);
     }
 
-    // [Authorize(Roles = "Admin")] // Comentado por ahora para permitir pruebas libres
+    // [Authorize(Roles = "Admin")] // Commented for now to allow free testing
     [HttpDelete("{id}")]
-    public async Task<IActionResult> EliminarEquipo(int id)
+    public async Task<IActionResult> DeleteTeam(int id)
     {
         var result = await _mediator.Send(new DeleteTeamCommand { Id = id });
 
         if (!result)
-            return NotFound(new { Message = "No se pudo eliminar: Equipo no encontrado" });
+            return NotFound(new { Message = "Could not delete: Team not found" });
 
-        return Ok(new { Message = "¡Equipo eliminado de la base de datos de Costa Rica!" });
+        return Ok(new { Message = "Team deleted from the Costa Rica database!" });
     }
 }

@@ -4,11 +4,11 @@ namespace ApiFutbolCostaRica.Domain.Interfaces;
 
 public interface IMatchRepository
 {
-    Task<int> RegistrarNuevoPartido(Match match);
-    Task<int> ActualizarPartido(Match match);
-    Task<Match?> ObtenerPartidoPorId(int id);
-    Task<Match?> ObtenerPartidoPorIdExterno(int externalId);
-    Task<IEnumerable<Match>> ObtenerTodosLosPartidos();
-    Task<IEnumerable<Match>> ObtenerPartidosPorFecha(DateTime date);
-    Task<int> EliminarPartido(int id);
+    Task<int> RegisterNewMatch(Match match);
+    Task<int> UpdateMatch(Match match);
+    Task<Match?> GetMatchById(int id);
+    Task<Match?> GetMatchByExternalId(int externalId);
+    Task<IEnumerable<Match>> GetAllMatches();
+    Task<IEnumerable<Match>> GetMatchesByDate(DateTime date);
+    Task<int> DeleteMatch(int id);
 }

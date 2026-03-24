@@ -16,6 +16,6 @@ public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, Team?>
     public async Task<Team?> Handle(GetTeamByIdQuery request, CancellationToken cancellationToken)
     {
         // Solo llama al repositorio pasándole el ID
-        return await _teamRepository.ObtenerEquipoPorId(request.Id);
+        return await _teamRepository.GetTeamById(request.Id);
     }
 }

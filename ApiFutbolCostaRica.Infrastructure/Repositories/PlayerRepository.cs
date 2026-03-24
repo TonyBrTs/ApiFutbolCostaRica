@@ -12,31 +12,31 @@ public class PlayerRepository : IPlayerRepository
     {
         _context = context;
     }
-    public async Task<int> RegistrarNuevoJugador(Player player)
+    public async Task<int> RegisterNewPlayer(Player player)
     {
         _context.Players.Add(player);
         await _context.SaveChangesAsync();
         return player.Id;
     }
-    public async Task<Player?> ObtenerJugadorPorId(int id)
+    public async Task<Player?> GetPlayerById(int id)
     {
         return await _context.Players
             .Include(p => p.Team)
             .FirstOrDefaultAsync(p => p.Id == id);
     }
-    public async Task<IEnumerable<Player>> ObtenerJugadorPorNombre(string name)
+    public async Task<IEnumerable<Player>> GetPlayersByName(string name)
     {
         return await _context.Players
             .Include(p => p.Team)
             .Where(p => p.Name.Contains(name))
             .ToListAsync();
     }
-    public async Task<int> ActualizarJugador(Player player)
+    public async Task<int> UpdatePlayer(Player player)
     {
         _context.Players.Update(player);
         return await _context.SaveChangesAsync();
     }
-    public async Task<int> EliminarJugador(int id)
+    public async Task<int> DeletePlayer(int id)
     {
         var player = await _context.Players.FindAsync(id);
         if (player == null)
@@ -47,14 +47,14 @@ public class PlayerRepository : IPlayerRepository
         return await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Player>> ObtenerTodosLosJugadores()
+    public async Task<IEnumerable<Player>> GetAllPlayers()
     {
         return await _context.Players
             .Include(p => p.Team)
             .ToListAsync();
     }
 
-    public async Task LimpiarTodosLosJugadores()
+    public async Task ClearAllPlayers()
     {
         await _context.Players.ExecuteDeleteAsync();
     }

@@ -27,6 +27,6 @@ public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand, int>
         };
 
         // 2. Guardar "newTeam" en la base de datos a través del repositorio
-        return await _teamRepository.RegistrarNuevoEquipo(newTeam);
+        return await _teamRepository.RegisterNewTeam(newTeam);
     }
 }

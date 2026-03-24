@@ -10,9 +10,9 @@ public class Player
     public string PhotoUrl { get; set; } = string.Empty;
     public int? Number { get; set; }
 
-    // Relación con el Equipo (Llave Foránea) - Ahora opcional
+    // Relationship with Team (Foreign Key) - Now optional
     public int? TeamId { get; set; }
 
-    // Propiedad de navegación: Un jugador pertenece a un solo equipo
+    // Navigation property: A player belongs to a single team
     public Team? Team { get; set; }
 }

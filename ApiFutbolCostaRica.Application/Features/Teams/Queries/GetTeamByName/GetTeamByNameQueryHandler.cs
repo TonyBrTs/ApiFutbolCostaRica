@@ -16,6 +16,6 @@ public class GetTeamByNameQueryHandler : IRequestHandler<GetTeamByNameQuery, IEn
 
     public async Task<IEnumerable<Team>> Handle(GetTeamByNameQuery request, CancellationToken cancellationToken)
     {
-        return await _teamRepository.ObtenerEquipoPorNombre(request.Name);
+        return await _teamRepository.GetTeamsByName(request.Name);
     }
 }

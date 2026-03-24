@@ -4,11 +4,11 @@ namespace ApiFutbolCostaRica.Domain.Interfaces;
 
 public interface ITeamRepository
 {
-    Task<int> RegistrarNuevoEquipo(Team team);
-    Task<int> ActualizarEquipo(Team team);
-    Task<IEnumerable<Team>> ObtenerTodosLosEquipos();
-    Task<Team?> ObtenerEquipoPorId(int id);
-    Task<IEnumerable<Team>> ObtenerEquipoPorNombre(string name);
-    Task<bool> EliminarEquipo(int id);
-    Task LimpiarTodosLosEquipos();
+    Task<int> RegisterNewTeam(Team team);
+    Task<int> UpdateTeam(Team team);
+    Task<IEnumerable<Team>> GetAllTeams();
+    Task<Team?> GetTeamById(int id);
+    Task<IEnumerable<Team>> GetTeamsByName(string name);
+    Task<bool> DeleteTeam(int id);
+    Task ClearAllTeams();
 }

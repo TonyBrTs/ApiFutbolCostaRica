@@ -21,6 +21,6 @@ public class CreatePlayerCommandHandler : IRequestHandler<CreatePlayerCommand, i
             Age = request.Age,
             TeamId = request.TeamId
         };
-        return await _playerRepository.RegistrarNuevoJugador(player);
+        return await _playerRepository.RegisterNewPlayer(player);
     }
 }

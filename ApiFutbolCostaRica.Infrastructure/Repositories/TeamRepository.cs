@@ -14,35 +14,35 @@ public class TeamRepository : ITeamRepository
         _context = context;
     }
 
-    public async Task<int> RegistrarNuevoEquipo(Team team)
+    public async Task<int> RegisterNewTeam(Team team)
     {
         _context.Teams.Add(team);
         await _context.SaveChangesAsync();
         return team.Id;
     }
 
-    public async Task<int> ActualizarEquipo(Team team)
+    public async Task<int> UpdateTeam(Team team)
     {
         _context.Teams.Update(team);
         await _context.SaveChangesAsync();
         return team.Id;
     }
 
-    public async Task<IEnumerable<Team>> ObtenerTodosLosEquipos()
+    public async Task<IEnumerable<Team>> GetAllTeams()
     {
         return await _context.Teams
             .Include(t => t.Players)
             .ToListAsync();
     }
 
-    public async Task<Team?> ObtenerEquipoPorId(int id)
+    public async Task<Team?> GetTeamById(int id)
     {
         return await _context.Teams
             .Include(t => t.Players)
             .FirstOrDefaultAsync(t => t.Id == id);
     }
 
-    public async Task<IEnumerable<Team>> ObtenerEquipoPorNombre(string name)
+    public async Task<IEnumerable<Team>> GetTeamsByName(string name)
     {
         return await _context.Teams
             .Include(t => t.Players)
@@ -50,7 +50,7 @@ public class TeamRepository : ITeamRepository
             .ToListAsync();
     }
 
-    public async Task<bool> EliminarEquipo(int id)
+    public async Task<bool> DeleteTeam(int id)
     {
         var team = await _context.Teams.FindAsync(id);
         if (team == null) return false;
@@ -60,7 +60,7 @@ public class TeamRepository : ITeamRepository
         return true;
     }
 
-    public async Task LimpiarTodosLosEquipos()
+    public async Task ClearAllTeams()
     {
         await _context.Teams.ExecuteDeleteAsync();
     }

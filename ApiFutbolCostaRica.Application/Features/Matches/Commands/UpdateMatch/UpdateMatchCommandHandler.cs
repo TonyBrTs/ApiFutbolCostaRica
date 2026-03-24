@@ -17,7 +17,7 @@ public class UpdateMatchCommandHandler : IRequestHandler<UpdateMatchCommand, int
 
     public async Task<int> Handle(UpdateMatchCommand request, CancellationToken cancellationToken)
     {
-        var match = await _matchRepository.ObtenerPartidoPorId(request.Id);
+        var match = await _matchRepository.GetMatchById(request.Id);
         if (match == null)
             throw new Exception($"El partido con Id {request.Id} no existe.");
 
@@ -30,6 +30,6 @@ public class UpdateMatchCommandHandler : IRequestHandler<UpdateMatchCommand, int
         match.Referee = request.Referee;
         match.Venue = request.Venue;
 
-        return await _matchRepository.ActualizarPartido(match);
+        return await _matchRepository.UpdateMatch(match);
     }
 }

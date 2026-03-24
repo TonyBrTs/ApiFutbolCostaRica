@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using MediatR;
@@ -17,7 +17,7 @@ public class GetAllPlayersQueryHandler : IRequestHandler<GetAllPlayersQuery, IEn
 
     public async Task<IEnumerable<Player>> Handle(GetAllPlayersQuery request, CancellationToken cancellationToken)
     {
-        return await _playerRepository.ObtenerTodosLosJugadores();
+        return await _playerRepository.GetAllPlayers();
     }
 }
 

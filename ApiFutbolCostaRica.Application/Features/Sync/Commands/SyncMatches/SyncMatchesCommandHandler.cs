@@ -29,12 +29,12 @@ public class SyncMatchesCommandHandler : IRequestHandler<SyncMatchesCommand, boo
 
         foreach (var fixture in fixtures)
         {
-            var existingMatch = await _matchRepository.ObtenerPartidoPorIdExterno(fixture.ExternalId);
+            var existingMatch = await _matchRepository.GetMatchByExternalId(fixture.ExternalId);
 
-            var homeTeams = await _teamRepository.ObtenerEquipoPorNombre(fixture.HomeTeam!.Name);
+            var homeTeams = await _teamRepository.GetTeamsByName(fixture.HomeTeam!.Name);
             var homeTeam = homeTeams.FirstOrDefault();
 
-            var awayTeams = await _teamRepository.ObtenerEquipoPorNombre(fixture.AwayTeam!.Name);
+            var awayTeams = await _teamRepository.GetTeamsByName(fixture.AwayTeam!.Name);
             var awayTeam = awayTeams.FirstOrDefault();
 
             // Si los equipos no existen localmente, no podemos registrar el partido
@@ -53,7 +53,7 @@ public class SyncMatchesCommandHandler : IRequestHandler<SyncMatchesCommand, boo
                 fixture.HomeTeam = null;
                 fixture.AwayTeam = null;
 
-                await _matchRepository.RegistrarNuevoPartido(fixture);
+                await _matchRepository.RegisterNewMatch(fixture);
             }
             else
             {
@@ -65,7 +65,7 @@ public class SyncMatchesCommandHandler : IRequestHandler<SyncMatchesCommand, boo
                 existingMatch.Referee = fixture.Referee;
                 existingMatch.Venue = fixture.Venue;
                 
-                await _matchRepository.ActualizarPartido(existingMatch);
+                await _matchRepository.UpdateMatch(existingMatch);
             }
         }
 

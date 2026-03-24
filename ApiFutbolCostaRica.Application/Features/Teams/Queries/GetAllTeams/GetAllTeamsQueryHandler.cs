@@ -15,6 +15,6 @@ public class GetAllTeamsQueryHandler : IRequestHandler<GetAllTeamsQuery, IEnumer
 
     public async Task<IEnumerable<Team>> Handle(GetAllTeamsQuery request, CancellationToken cancellationToken)
     {
-        return await _teamRepository.ObtenerTodosLosEquipos();
+        return await _teamRepository.GetAllTeams();
     }
 }
