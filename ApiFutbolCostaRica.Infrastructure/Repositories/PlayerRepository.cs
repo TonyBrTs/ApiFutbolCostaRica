@@ -20,11 +20,14 @@ public class PlayerRepository : IPlayerRepository
     }
     public async Task<Player?> ObtenerJugadorPorId(int id)
     {
-        return await _context.Players.FindAsync(id);
+        return await _context.Players
+            .Include(p => p.Team)
+            .FirstOrDefaultAsync(p => p.Id == id);
     }
     public async Task<IEnumerable<Player>> ObtenerJugadorPorNombre(string name)
     {
         return await _context.Players
+            .Include(p => p.Team)
             .Where(p => p.Name.Contains(name))
             .ToListAsync();
     }
@@ -46,7 +49,9 @@ public class PlayerRepository : IPlayerRepository
 
     public async Task<IEnumerable<Player>> ObtenerTodosLosJugadores()
     {
-        return await _context.Players.ToListAsync();
+        return await _context.Players
+            .Include(p => p.Team)
+            .ToListAsync();
     }
 
     public async Task LimpiarTodosLosJugadores()

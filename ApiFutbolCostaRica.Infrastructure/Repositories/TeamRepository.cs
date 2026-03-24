@@ -30,17 +30,22 @@ public class TeamRepository : ITeamRepository
 
     public async Task<IEnumerable<Team>> ObtenerTodosLosEquipos()
     {
-        return await _context.Teams.ToListAsync();
+        return await _context.Teams
+            .Include(t => t.Players)
+            .ToListAsync();
     }
 
     public async Task<Team?> ObtenerEquipoPorId(int id)
     {
-        return await _context.Teams.FindAsync(id);
+        return await _context.Teams
+            .Include(t => t.Players)
+            .FirstOrDefaultAsync(t => t.Id == id);
     }
 
     public async Task<IEnumerable<Team>> ObtenerEquipoPorNombre(string name)
     {
         return await _context.Teams
+            .Include(t => t.Players)
             .Where(t => t.Name.Contains(name))
             .ToListAsync();
     }
